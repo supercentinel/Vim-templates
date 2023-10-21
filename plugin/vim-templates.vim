@@ -1,12 +1,12 @@
 " Variables assigned by the user TODO set in init.vim
 let g:template_dir = '~/Templates'
-let g:name = 'test'
+let g:author = 'test'
 let g:email = 'a374377@proton.me'
 let s:date = '2019-01-01'
 
 " Dictionary with the formats to replace
 let s:formats = {
-    \'{{_user_}}': g:name,
+    \'{{_author_}}': g:author,
     \'{{_email_}}': g:email,
     \'{{_file_name_}}': '',
     \'{{_upper_file_}}': '',
@@ -73,8 +73,8 @@ function s:CustomComplete(ArgLead, CmdLine, CursorPos)
 endfunction
 
 function s:Template(Template, filename, ...)
-    let s:formats['{{_file_name_}}'] = s:file_name
-    let s:formats['{{_upper_file_}}'] = s:upper_file
+    let s:formats['{{_file_name_}}'] = a:filename
+    let s:formats['{{_upper_file_}}'] = toupper(a:filename)
 
     let s:Template_location = s:files_dict[a:Template]
 
