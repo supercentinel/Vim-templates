@@ -1,7 +1,4 @@
-" Variables assigned by the user TODO set in init.vim
-let g:template_dir = '~/Templates'
-let g:author = 'test'
-let g:email = 'a374377@proton.me'
+"TODO create function to get the current date
 let s:date = '2019-01-01'
 
 " Dictionary with the formats to replace
