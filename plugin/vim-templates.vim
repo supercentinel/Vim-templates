@@ -79,5 +79,14 @@ function s:Template(Template, filename, ...)
     call s:InsertTemplate(s:formated_file)
 endfunction
 
-command ScanDir let s:files = s:ScanDir(g:template_dir)
+function s:UpdateTemplates()
+    let s:files = s:ScanDir(g:template_dir)
+
+    let s:short_files = deepcopy(s:files)
+    call map(s:short_files, 'fnamemodify(v:val, ":t")')
+
+    let s:files_dict = s:CreateFilesDict(s:files, s:short_files)
+endfunction
+
+command UpdateTemplates call s:UpdateTemplates()
 command! -nargs=* -complete=customlist,s:CustomComplete Template call s:Template(<f-args>)
