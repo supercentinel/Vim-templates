@@ -13,7 +13,7 @@ let s:formats = {
 function! s:ScanDir(template_dir)
     let expanded_dir = expand(a:template_dir)
     let files = systemlist('find ' . shellescape(expanded_dir) . ' -type f')
-    call filter(files, 'v:val =~ "\\.[^.]*$"')
+    call filter(files, 'v:val =~ "[^.]*$"')
 
     return files
 endfunction
@@ -82,11 +82,13 @@ endfunction
 function s:UpdateTemplates()
     let s:files = s:ScanDir(g:template_dir)
 
+    echo s:files
+
     let s:short_files = deepcopy(s:files)
     call map(s:short_files, 'fnamemodify(v:val, ":t")')
 
     let s:files_dict = s:CreateFilesDict(s:files, s:short_files)
 endfunction
 
-command UpdateTemplates call s:UpdateTemplates()
+command! UpdateTemplates call s:UpdateTemplates()
 command! -nargs=* -complete=customlist,s:CustomComplete Template call s:Template(<f-args>)
